@@ -31,6 +31,7 @@ def handler(event, context):
     print("CVS Seattle status:", seattle_status)
 
     if seattle_status != "Fully Booked":
+        print("CVS Slot available")
         total_slots += 1
 
     print("Total slots:", total_slots)
