@@ -24,15 +24,16 @@ class VaccineCheckerStack(cdk.Stack):
             log_retention=logs.RetentionDays.ONE_MONTH
         )
 
-        rule = events.Rule(self, "rule",
-            schedule=events.Schedule.rate(cdk.Duration.hours(1)))
-
-        rule.add_target(targets.LambdaFunction(handler))
-
         availability_metric = cloudwatch.Metric(
             metric_name="appointments_available",
-            namespace="VaccineChecker"
+            namespace="VaccineChecker",
+            period=cdk.Duration.minutes(10)
         )
+
+        rule = events.Rule(self, "rule",
+            schedule=events.Schedule.rate(availability_metric.period))
+
+        rule.add_target(targets.LambdaFunction(handler))
 
         logs.MetricFilter(self, "filter",
             log_group=handler.log_group,
