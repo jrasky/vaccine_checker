@@ -46,7 +46,7 @@ class VaccineCheckerStack(cdk.Stack):
             topic_name="VaccineCheckerNotify")
 
         failure_alarm = cloudwatch.Alarm(self, "checkerFailureAlarm",
-            metric=handler.metric_all_errors(),
+            metric=handler.metric_errors(),
             evaluation_periods=1,
             threshold=0,
             comparison_operator=cloudwatch.ComparisonOperator.GREATER_THAN_THRESHOLD,
