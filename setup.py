@@ -20,6 +20,13 @@ setuptools.setup(
 
     install_requires=[
         "aws-cdk.core==1.98.0",
+        "aws-cdk.aws-lambda-python",
+        "aws-cdk.aws-events",
+        "aws-cdk.aws-events-targets",
+        "aws-cdk.aws-logs",
+        "aws-cdk.aws-cloudwatch",
+        "aws-cdk.aws-sns",
+        "aws-cdk.aws-cloudwatch-actions",
     ],
 
     python_requires=">=3.6",

@@ -218,3 +218,5 @@ cython_debug/
 # Ignore build folder
 .aws-sam/
 
+# Ignore CDK build folder
+cdk.out/
