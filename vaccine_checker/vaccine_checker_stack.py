@@ -21,6 +21,8 @@ class VaccineCheckerStack(cdk.Stack):
 
         handler = python_lambda.PythonFunction(self, "checker",
             entry="checker_function",
+            memory_size=256,
+            timeout=cdk.Duration.minutes(5),
             log_retention=logs.RetentionDays.ONE_MONTH
         )
 
