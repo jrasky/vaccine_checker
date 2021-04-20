@@ -29,7 +29,7 @@ class VaccineCheckerStack(cdk.Stack):
         availability_metric = cloudwatch.Metric(
             metric_name="appointments_available",
             namespace="VaccineChecker",
-            period=cdk.Duration.minutes(10)
+            period=cdk.Duration.minutes(5)
         )
 
         rule = events.Rule(self, "rule",
@@ -70,3 +70,13 @@ class VaccineCheckerStack(cdk.Stack):
             alarm_description="Vaccine appoints are available"
         )
         availability_alarm.add_alarm_action(cloudwatch_actions.SnsAction(alarm_topic))
+
+        high_availability_alarm = cloudwatch.Alarm(self, "highAvailabilityAlarm",
+            metric=availability_metric,
+            evaluation_periods=1,
+            threshold=10,
+            comparison_operator=cloudwatch.ComparisonOperator.GREATER_THAN_OR_EQUAL_TO_THRESHOLD,
+            statistic="sum",
+            alarm_name="VaccineHighAvailabilityAlarm",
+            alarm_description="A high number of vaccine appointments are available")
+        high_availability_alarm.add_alarm_action(cloudwatch_actions.SnsAction(alarm_topic))

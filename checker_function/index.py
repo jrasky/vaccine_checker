@@ -19,7 +19,8 @@ def handler(event, context):
         total_slots += slot['availability']
 
         if slot['availability'] > 0:
-            print("{} Slots available at {}".format(slot['availability'], slot['appointment_date']))
+            for i in range(slot['availability']):
+                print("Fred Hutch Slot available at {}".format(slot['availability'], slot['appointment_date']))
 
     # CVS
     resp = requests.get("https://www.cvs.com/immunizations/covid-19-vaccine.vaccine-status.WA.json?vaccineinfo=",
